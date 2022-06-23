@@ -1,0 +1,19 @@
+{
+    "name": "react",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "jest",
+        "coverage": "jest --coverage",
+        "start": "node index.js",
+        "debug": "nodemon index.js",
+        "seed": "node ./models/index.js"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "express": "^4.18.1",
+        "nodemon": "^2.0.16"
+    }
+}

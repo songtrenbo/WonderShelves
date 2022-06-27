@@ -4,16 +4,22 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "test": "jest",
-        "coverage": "jest --coverage",
         "start": "node index.js",
-        "debug": "nodemon index.js",
-        "seed": "node ./models/index.js"
+        "seed": "node ./seed/index.js",
+        "dev": "nodemon index.js"
     },
     "author": "",
     "license": "ISC",
     "dependencies": {
+        "bcryptjs": "^2.4.3",
+        "dotenv": "^16.0.1",
         "express": "^4.18.1",
-        "nodemon": "^2.0.16"
+        "mongoose": "^6.4.0",
+        "pine": "^1.1.1",
+        "swagger-jsdoc": "^6.2.1",
+        "swagger-ui-express": "^4.4.0"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.18"
     }
 }

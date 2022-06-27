@@ -1,14 +1,38 @@
-const http = require('http');
+const express = require('express');
+require('dotenv').config();
+const swaggerJsDoc = require("swagger-jsdoc");
+const swaggerUi = require('swagger-ui-express');
 
-const hostname = '127.0.0.1';
-const port = 3000;
 
-const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Hello World');
+const books = require('./routes/book.route');
+
+const app = express();
+const port = process.env.PORT || 3000;
+const swaggerOptions = {
+  swaggerDefinition: {
+    info: {
+      version: "1.0.0",
+      title: "Customer API",
+      description: "Customer API Information",
+      contact: {
+        name: "Amazing Developer"
+      },
+      servers: ["http://localhost:5001"]
+    }
+  },
+  apis: ["./routes/*.js"]
+};
+
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+
+
+app.use('/api', books);
+
+app.get('/', (req, res) => {
+  res.send(`<h1>API Works !!!</h1>`)
 });
 
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
-});
+app.listen(port, () => {
+  console.log(`Server listening on the port  ${port}`);
+})

@@ -139,7 +139,7 @@ async function seedBook() {
     }),
     new Book({
       title: "Born a Crime",
-      image: "https://cf.shopee.vn/file/61fb942859256318b8be3cb65afa228d",
+      image: "https://images-na.ssl-images-amazon.com/images/I/917LEdmXT4L.jpg",
       quantity: 14,
       price: 12.14,
       description: ` WINNER OF THE THURBER PRIZE   The compelling, inspiring, (often comic) coming-of-age story of Trevor Noah, set during the twilight of apartheid and the tumultuous days of freedom that followed.   One of the comedy world's brightest new voices, Trevor Noah is a light-footed but sharp-minded observer of the absurdities of politics, race and identity, sharing jokes and insights drawn from the wealth of experience acquired in his relatively young life. As host of the US hit show The Daily Show with Trevor Noah`,

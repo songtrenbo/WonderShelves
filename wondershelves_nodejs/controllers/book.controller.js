@@ -2,9 +2,18 @@ const bookService = require('../services/book.service');
 const logger = require('../logger/api.logger');
 
 class BookController{
-    async getBooks(){
+    constructor(){}
+    async getBooks(page, limit){
         logger.info('Controller: getBooks');
-        return await bookService.getBooks();
+        return await bookService.getBooks(page, limit);
+    }
+    async getBooksByCategory(categoryId){
+        logger.info('Controller: getBooksByCategory', categoryId);
+        return await bookService.getBooksByCategory(categoryId);
+    }
+    async getBook(bookId){
+        logger.info('Controller: getBook', bookId);
+        return await bookService.getBook(bookId);
     }
 
     async createBook(book){
@@ -13,9 +22,9 @@ class BookController{
         return await bookService.createBook(book);
     }
 
-    async updateBook(book){
+    async updateBook(bookId, book){
         logger.info('Controller: updateBook', book);
-        return await bookService.updateBook(book);
+        return await bookService.updateBook(bookId, book);
     }
 
     async deleteBook(bookId){

@@ -1,0 +1,22 @@
+
+.cat{
+    float: left;
+  }
+  
+  .cat label {
+    float: left; line-height: 3.0em;
+  }
+  
+  .cat label span {
+    text-align: center;
+    display: block;
+    cursor: pointer;
+    color:blue;
+  }
+  
+  .cat label input {
+    position: absolute;
+    display: none;
+  }
+  
+  

@@ -1,0 +1,48 @@
+<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <div class="cards row">
+        <div class="col-md-2" *ngFor="let book of books; let i = index">
+          <span class="card" *ngIf="i < 6">
+            <a routerLink="/book/{{book._id}}"><img src="{{book.image}}" class="card-img-top" style="width: 196px; height: 297px;"
+                alt="..."></a>
+            <div class="card-body">
+              <h5 class="card-title text-truncate">{{book.title}}</h5>
+              <p class="card-text">{{book.price| currency}}</p>
+              <a class="btn btn-outline-dark d-flex justify-content-center" (click)="AddToCart(book)">Add to cart</a>
+              <span *ngIf="book.quantity>0">In stock</span>
+              <span *ngIf="book.quantity===0">Out of stock</span>
+            </div>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <div class="cards row">
+        <div class="col-md-2" *ngFor="let book of books; let i = index">
+          <span class="card" *ngIf="i >= 6">
+            <a  routerLink="/book/{{book._id}}"> <img src="{{book.image}}" class="card-img-top" style="width: 196px; height: 297px;"
+                alt="..."></a>
+            <div class="card-body">
+              <h5 class="card-title text-truncate">{{book.title}}</h5>
+              <p class="card-text">{{book.price| currency}}</p>
+              <a class="btn btn-outline-dark d-flex justify-content-center" (click)="AddToCart(book)">Add to cart</a>
+              <span *ngIf="book.quantity>0">In stock</span>
+              <span *ngIf="book.quantity===0">Out of stock</span>
+            </div>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" style="width: 70px;" type="button" data-bs-target="#carouselExampleControls"
+    data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" style="width: 70px;" type="button" data-bs-target="#carouselExampleControls"
+    data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>

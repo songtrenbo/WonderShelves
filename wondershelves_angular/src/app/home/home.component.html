@@ -1,0 +1,17 @@
+<div class="banner">
+    <div class="container container-banner">
+        <div class="row">
+            <div class="col-md-4">
+                <h1 class="text-white">We will fill your books with letters</h1>
+                <p class="text-white">Every book you buy teaches someone else to treat</p>
+                <button class="btn btn-outline-light px-4 fs-5">Order now</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container my-5">
+    <div *ngFor="let category of categories" class="mt-4">
+        <a class="fs-4 text-decoration-none text-dark fw-bold">{{category.name.toUpperCase()}}</a>
+        <app-carousel-book-by-category [categoryId]="category._id"></app-carousel-book-by-category>
+    </div>
+</div>

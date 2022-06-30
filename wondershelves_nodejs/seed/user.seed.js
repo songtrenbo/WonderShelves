@@ -1,4 +1,3 @@
-
 const { User } = require("../models/user.model");
 const { Role } = require("../models/role.model");
 const mongoose = require("mongoose");
@@ -8,27 +7,27 @@ async function seedUsers() {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });
-  
+
   const userRole = await Role.findOne({ name: "User" });
   const adminRole = await Role.findOne({ name: "Admin" });
   const users = [
     new User({
-        fullName: "Nguyen Van A",
-          username: "VanA123",
-          password: "VanA@123",
-          roles: userRole._id
+      fullName: "Nguyen Van A",
+      email: "VanA123@gmail.com",
+      password: "VanA@123",
+      roles: userRole._id,
     }),
     new User({
-        fullName: "Tran Van B",
-          username: "VanB123",
-          password: "VanB@123",
-          roles: userRole._id
+      fullName: "Tran Van B",
+      email: "VanB123@gmail.com",
+      password: "VanB@123",
+      roles: userRole._id,
     }),
     new User({
-        fullName: "Lam Van D",
-          username: "VanD123",
-          password: "VanD@123",
-          roles: adminRole._id
+      fullName: "Lam Van D",
+      email: "VanD123@gmail.com",
+      password: "VanD@123",
+      roles: adminRole._id,
     }),
   ];
 
@@ -38,5 +37,5 @@ async function seedUsers() {
   }
 }
 module.exports = {
-    seedUsers,
+  seedUsers,
 };

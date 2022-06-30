@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 p-5 bg-light">
+            <div class="p-5">
+                <img src="{{book.image}}" alt="" class="img-fluid">
+            </div>
+        </div>
+        <div class="col-md-8 p-5">
+            <div class="row p-2">
+                <span class="fs-4"><b>Title:</b> {{book.title}}</span>
+            </div>
+            <div class="row p-2">
+                <span class="fs-4"><b>Stock:</b> {{book.quantity}}</span>
+            </div>
+            <div class="row p-2">
+                <span class="fs-4"><b>Price:</b> {{book.price | currency}}</span>
+            </div>
+            <div class="row p-2">
+               <div class="col-md-3">
+
+               </div>
+               <div class="col-md-7">
+                    <input type="button" class="btn btn-outline-dark w-100 py-2 fs-5" value="ADD TO CART" name="a">
+               </div>
+            </div>
+            <div class="row p-2">
+                <span class="fs-4"><b>Description:</b> {{book.description}}</span>
+            </div>
+        </div>
+    </div>
+</div>

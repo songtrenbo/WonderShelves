@@ -1,83 +1,221 @@
 const express = require("express");
 const router = express.Router();
 const bookController = require("../controllers/book.controller");
-
+const auth = require("../middleware/auth");
 /**
  * @swagger
- * /api/books:
+ * /api/books/page={page}/limit={limit}:
  *  get:
+ *    summary: get list of book
  *    description: Use to request all books
  *    tags: [Books]
+ *    parameters:
+ *        - in: path
+ *          name: page
+ *          description: book page
+ *          schema:
+ *            type: string
+ *        - in: path
+ *          name: limit
+ *          description: page limit
+ *          schema:
+ *            type: string
  *    responses:
  *      '200':
- *        description: A successful response
+ *        description: Successful get books
  */
-router.get("/books", (req, res) => {
-  bookController.getBooks().then((data) => res.json(data));
+router.get("/books/page=:page/limit=:limit", (req, res) => {
+  bookController.getBooks(req.params.page, req.params.limit).then((data) => res.json(data));
 });
-
-
+/**
+ * @swagger
+ *  /api/book/bookId={id}:
+ *    get:
+ *      summary: get book by id
+ *      tags: [Books]
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          description: book id
+ *          required: true
+ *          schema:
+ *            type: string
+ *      responses:
+ *        200:
+ *          description: Successful get a book
+ *        404:
+ *          description: Book was not found
+ *
+ */
+router.get("/book/bookId=:id", (req, res) => {
+  bookController.getBook(req.params.id).then((data) => res.json(data));
+});
+/**
+ * @swagger
+ *  /api/book/categoryId={id}:
+ *    get:
+ *      summary: get list of book by category id
+ *      tags: [Books]
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          description: category id
+ *          required: true
+ *          schema:
+ *            type: string
+ *      responses:
+ *        200:
+ *          description: Successful get books
+ *        404:
+ *          description: CategoryId was not found
+ *
+ */
+router.get("/book/categoryId=:id", (req, res) => {
+  bookController.getBooksByCategory(req.params.id).then((data) => res.json(data));
+});
 /**
  * @swagger
  * /api/book:
  *   post:
- *     summary: Create a new book
+ *     summary: create book
  *     tags: [Books]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/definitions/Book'
+ *     produces: [application/json]
+ *     consumes: [application/json]
+ *     parameters:
+ *       - in : body
+ *         name: body
+ *         description: book object
+ *         schema:
+ *           type: object
+ *           properties:
+ *              book:
+ *                type: object
+ *                $ref: '#/definitions/Book'
+ *         required: true
  *     responses:
  *       200:
- *         description: The post was successfully created
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/definitions/Book'
+ *         description: successful operation
+ *         schema:
+ *           type: array
+ *           items:
+ *              $ref: '#/definitions/Response'
+ *       400:
+ *         description: Book can not be found
  *       500:
- *         description: Some server error
+ *         description: Book can not be found
+ *         schema:
+ *           $ref: '#/definitions/InvalidResponse'
  */
-router.post("/book", (req, res) => {
-  console.log(req.body);
+router.post("/book", auth, (req, res) => {
   bookController.createBook(req.body.book).then((data) => res.json(data));
 });
 
-
-router.put("/book", (req, res) => {
-  bookController.updateBook(req.body.book).then((data) => res.json(data));
-});
-router.delete("/book/:id", (req, res) => {
-  bookController.deleteBook(req.params.id).then((data) => res.json(data));
+/**
+ * @swagger
+ * /api/book/{id}:
+ *   put:
+ *     summary: update book by id
+ *     tags: [Books]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: book id need to be updated
+ *         type: string
+ *       - in: body
+ *         name: body
+ *         required: true
+ *         description: book object
+ *         schema:
+ *            type: object
+ *            properties:
+ *              book:
+ *                type: object
+ *                $ref: '#/definitions/Book'
+ *     responses:
+ *       200:
+ *         decsription: The post was updated
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/definitions/Response'
+ *       404:
+ *         description: Book was not found
+ *       500:
+ *         description: Some errors happend
+ *         schema:
+ *           $ref: '#/definitions/InvalidResponse'
+ */
+router.put("/book/:id",auth, (req, res) => {
+  console.log(req.params.id);
+  bookController
+    .updateBook(req.params.id, req.body.book)
+    .then((data) => res.json(data));
 });
 /**
  * @swagger
+ *  /api/book/{id}:
+ *    delete:
+ *      summary: remove book
+ *      tags: [Books]
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          description: book id
+ *          required: true
+ *          schema:
+ *            type: string
+ *      responses:
+ *        200:
+ *          description: Book was deleted
+ *        404:
+ *          description: Book was not found
+ *
+ */
+router.delete("/book/:id",auth, (req, res) => {
+  bookController.deleteBook(req.params.id).then((data) => res.json(data));
+});
+
+/**
+ * @swagger
  * definitions:
- *     Book:
- *       type: object
- *       required:
- *         - userId
- *         - title
- *         - body
- *       properties:
- *         id:
- *           type: integer
- *           description: The Auto-generated id of a post
- *         userId:
- *           type: integer
- *           description: id of author
- *         title:
- *           type: string
- *           description: title of post
- *         body:
- *           type: string
- *           descripton: content of post *
- *       example:
- *         id: 1
- *         userId: 1
- *         title: my title
- *         body: my article
+ *   Book:
+ *    type: object
+ *    properties:
+ *      title:
+ *         type: string
+ *      image:
+ *         type: string
+ *      quantity:
+ *         type: number
+ *      price:
+ *         type: number
+ *      description:
+ *         type: string
+ *      categories:
+ *         type: string
+ *   Response:
+ *    type: object
+ *    properties:
+ *      _id:
+ *         type: string
+ *      title:
+ *         type: string
+ *      image:
+ *         type: string
+ *      quantity:
+ *         type: number
+ *      price:
+ *         type: number
+ *      description:
+ *         type: string
+ *   InvalidResponse:
+ *    type: object
+ *    properties:
+ *      statusCode:
+ *         type: string
+ *      message:
+ *         type: string
  *
  */
 module.exports = router;

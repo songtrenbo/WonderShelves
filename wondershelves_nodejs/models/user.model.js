@@ -9,13 +9,17 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    username: {
+    email: {
       type: String,
       required: true,
+      unique: true
     },
     password: {
       type: String,
       required: true,
+    },
+    token: {
+      type: String
     },
     roles: [{ type: Schema.Types.ObjectId, ref: "roles" }],
   },

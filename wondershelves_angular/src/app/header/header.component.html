@@ -1,0 +1,17 @@
+<nav class="navbar navbar-light bg-white">
+    <div class="container py-4">
+        <a class="navbar-brand fs-3 fw-bold" routerLink="/home">WonderShelves</a>
+        <span class="d-flex align-items-center">
+            <a class="mx-3 fs-5" routerLink="/home">HomePage</a>
+            <a class="mx-3 fs-5" routerLink="/category">Categories</a>
+            <a class="mx-3 fs-5" routerLink="/blog">Blog</a>
+            <span class="mx-3 fs-5">|</span>
+            <a class="mx-3 fs-5" routerLink="/search"><i class="bi bi-search"></i></a>
+            <a class="mx-3 fs-5" routerLink="/cart"><i class="bi bi-cart4"></i></a>
+            <a class="mx-3 fs-5" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"
+                style="cursor:pointer" *ngIf="tokenInfo===null"><i class="bi bi-person"></i></a>
+            <span class="d-flex justify-content-center" *ngIf="tokenInfo!=null">Hi, {{tokenInfo.fullName}}</span>
+        </span>
+    </div>
+</nav>
+<app-login></app-login>

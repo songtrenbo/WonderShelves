@@ -1,0 +1,84 @@
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-7">
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>Shopping Cart</h3>
+                </div>
+                <div class="col-md-6">
+                    <input type="button" class="btn btn-dark float-end" value="Clear cart" name="a" (click)="ClearCart()">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-7">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item py-5" *ngFor="let item of carts; let i = index">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <img src="{{item.image}}" class="img-fluid" alt="">
+                        </div>
+                        <div class="col-md-3">
+                            <div class="row">
+                                {{item.title}}
+                            </div>
+                            <div class="row">
+                                Stock: {{item.quantity}}
+                            </div>
+                            <div class="row">
+                                {{item.price| currency}}
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <input [(ngModel)]="item.subQuantity" [ngModelOptions]="{standalone: true}" min="1" max="{{item.quantity}}"
+                                type="number" value="{{ item.subQuantity }}" name="" class="form-control"
+                                (change)="changeSubtotal(item ,i)" />
+                        </div>
+                        <div class="col-md-3">
+                            <div #subTotalWrap>{{ item.subPrice | currency }}</div>
+                        </div>
+                        <div class="col-md-1">
+                            <input type="button" class="btn btn-outline-dark" value="X" name="a"
+                                (click)="removeFromCart(item)">
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-5">
+            <h3>Cart totals</h3>
+            <div class="row py-3">
+                <div class="col-md-5 fw-bold fs-5 ">
+                    SHIPPING:
+                </div>
+                <div class="col-md-7">
+                    <span class="float-end">Your books will arrive as soon as possible</span>
+                </div>
+            </div>
+            <div class="row fw-bold fs-5 py-3">
+                <div class="col-md-5">
+                    TOTAL QUANTITY:
+                </div>
+                <div class="col-md-7">
+                    <span class="float-end">{{totalQuantity}}</span>
+                </div>
+            </div>
+            <hr/>
+            <div class="row fw-bold fs-5 pb-3">
+                <div class="col-md-5">
+                    TOTAL PRICE:
+                </div>
+                <div class="col-md-7">
+                    <span class="float-end">{{total | currency}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <input *ngIf="isLogin===true" type="button" class="btn btn-outline-dark w-100 py-2 fs-5" value="CHECK OUT" name="a">
+                    <span *ngIf="isLogin===false" class="fs-4">Please login to check out</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

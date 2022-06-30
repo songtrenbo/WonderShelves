@@ -1,0 +1,50 @@
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{{isChecked===false?"Login":"Register"}}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form *ngIf="isChecked===false">
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Email:</label>
+                        <input type="text" class="form-control" id="recipient-name" [(ngModel)]="user.email" name="email">
+                    </div>
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Password:</label>
+                        <input type="password" class="form-control" id="recipient-name" [(ngModel)]="user.password" name="password">
+                    </div>
+                </form>
+                <form *ngIf="isChecked===true">
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Full name:</label>
+                        <input type="password" class="form-control" id="recipient-name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Email:</label>
+                        <input type="email" class="form-control" id="recipient-name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Password:</label>
+                        <input type="password" class="form-control" id="recipient-name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Confirm Password:</label>
+                        <input type="password" class="form-control" id="recipient-name">
+                    </div>
+                </form>
+                <div class="cat action">
+                    <label>
+                        <input type="checkbox" value="1" [(ngModel)]="isChecked"><span class="text-blue">{{isChecked===false?"You don't have account? Click here to Register now.":"You already have account? Click here to Login now."}}</span>
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-dark w-100" *ngIf="isChecked===false" (click)="login()">Login</button>
+                <button type="button" class="btn btn-dark w-100" *ngIf="isChecked===true">Register</button>
+
+            </div>
+        </div>
+    </div>
+</div>

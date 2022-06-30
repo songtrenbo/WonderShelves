@@ -1,18 +1,24 @@
-const bookRepository = require('../repositories/book.reponsitory');
+const bookRepository = require('../repositories/book.repository');
 
 class BookService{
     constructor(){}
 
-    async getBooks(){
-        return await bookRepository.getBooks();
+    async getBooks(page, limit){
+        return await bookRepository.getBooks(page, limit);
     }
-
+    async getBooksByCategory(categoryId){
+        console.log("OKK");
+        return await bookRepository.getBooksByCategory(categoryId);
+    }
+    async getBook(bookId){
+        return await bookRepository.getBook(bookId);
+    }
     async createBook(book){
         return await bookRepository.createBook(book);
     }
 
-    async updateBook(book){
-        return await bookRepository.updateBook(book);  
+    async updateBook(bookId, book){
+        return await bookRepository.updateBook(bookId, book);  
     }
 
     async deleteBook(bookId){
